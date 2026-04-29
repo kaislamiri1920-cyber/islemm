@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Univers de Islem</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        * { cursor: none; box-sizing: border-box; } /* Cache la souris pour mettre un cœur */
+
+        body {
+            margin: 0;
+            background: #0f0014;
+            color: white;
+            font-family: 'Poppins', sans-serif;
+            overflow-x: hidden;
+            background: linear-gradient(135deg, #1a0025 0%, #050008 100%);
+        }
+
+        /* Curseur personnalisé */
+        #cursor {
+            width: 20px; height: 20px;
+            background: #ff4d6d;
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            box-shadow: 0 0 15px #ff4d6d;
+            transform: translate(-50%, -50%);
+        }
+
+        /* Étoiles animées */
+        .stars {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -1; pointer-events: none;
+        }
+
+        /* Container principal */
+        .main-content {
+            display: flex; flex-direction: column; align-items: center;
+            padding: 50px 20px;
+        }
+
+        /* Photo de profil qui brille */
+        .profile-container {
+            position: relative;
+            width: 220px; height: 220px;
+        }
+        .profile-container img {
+            width: 100%; height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid #ff4d6d;
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0px rgba(255, 77, 109, 0.7); }
+            100% { box-shadow: 0 0 0 30px rgba(255, 77, 109, 0); }
+        }
+
+        /* La Lettre d'Amour Cachée */
+        .love-letter {
+            display: none;
+            background: #fff0f3;
+            color: #4a0e4e;
+            padding: 40px;
+            border-radius: 15px;
+            max-width: 500px;
+            margin: 30px auto;
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.5rem;
+            box-shadow: 0 10px 50px rgba(255, 77, 109, 0.5);
+            transform: rotate(-2deg);
+        }
+
+        /* Bouton magique */
+        .magic-btn {
+            background: linear-gradient(45deg, #ff4d6d, #c9184a);
+            border: none; padding: 15px 40px;
+            border-radius: 50px; color: white;
+            font-size: 1.2rem; font-weight: bold;
+            margin: 20px; cursor: pointer;
+            box-shadow: 0 5px 20px rgba(255, 77, 109, 0.4);
+            transition: 0.3s;
+        }
+        .magic-btn:hover { transform: scale(1.1); filter: brightness(1.2); }
+
+        /* Galerie flottante */
+        .floating-gallery {
+            display: flex; gap: 20px; flex-wrap: wrap; justify-content: center;
+            margin-top: 50px;
+        }
+        .photo-frame {
+            width: 180px; height: 240px;
+            background: white; padding: 10px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+            transform: rotate(calc(var(--r) * 1deg));
+            transition: 0.3s;
+        }
+        .photo-frame:hover { transform: rotate(0) scale(1.2); z-index: 10; }
+        .photo-frame img { width: 100%; height: 85%; object-fit: cover; }
+        .photo-frame p { color: #333; margin: 5px 0; font-size: 0.8rem; font-weight: bold; }
+
+    </style>
+</head>
+<body>
+
+    <div id="cursor"></div>
+    <canvas class="stars" id="starCanvas"></canvas>
+
+    <div class="main-content">
+        <div class="profile-container">
+            <img src="1776014797103.png" alt="Islem">
+        </div>
+
+        <h1 style="font-family: 'Dancing Script', cursive; font-size: 3.5rem; margin: 20px 0;">Islem</h1>
+        <p style="letter-spacing: 3px; color: #ff8fa3;">MON AMOUR, MA VIE, MON TOUT</p>
+
+        <button class="magic-btn" onclick="openLetter()">Ouvre mon cœur</button>
+
+        <div id="letter" class="love-letter">
+            "Islem, ma chérie... <br><br>
+            Tu es la plus belle rencontre de ma vie. Je voulais te créer cet espace pour te dire que n7ebek barcha barcha. <br><br>
+            Dima fi 9albi, quoi qu'il arrive. <br><br>
+            Ton amoureux pour toujours."
+        </div>
+
+        <div class="floating-gallery">
+            <div class="photo-frame" style="--r: -5;"><img src="1772759774950.png"><p>Ton regard...</p></div>
+            <div class="photo-frame" style="--r: 3;"><img src="1773090552708.png"><p>Ton sourire...</p></div>
+            <div class="photo-frame" style="--r: -2;"><img src="1000002855-removebg-preview.png"><p>Nous deux.</p></div>
+        </div>
+        
+        <p style="margin-top: 100px; opacity: 0.5;">Fait avec amour pour Islem</p>
+    </div>
+
+    <audio id="bgMusic" src="Ahla Qarar- Amr Gaber.mp3" loop></audio>
+
+    <script>
+        // Suivi de la souris (Curseur Cœur)
+        const cursor = document.getElementById('cursor');
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+        });
+
+        // Animation de la lettre
+        function openLetter() {
+            const letter = document.getElementById('letter');
+            const music = document.getElementById('bgMusic');
+            letter.style.display = 'block';
+            music.play();
+            window.scrollTo({ top: letter.offsetTop - 100, behavior: 'smooth' });
+        }
+
+        // Système d'étoiles en fond
+        const canvas = document.getElementById('starCanvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const stars = [];
+        for(let i=0; i<150; i++) {
+            stars.push({
+                x: Math.random() * canvas.width,
+                y: Math.random() * canvas.height,
+                size: Math.random() * 2,
+                speed: Math.random() * 0.5
+            });
+        }
+
+        function animateStars() {
+            ctx.clearRect(0,0, canvas.width, canvas.height);
+            ctx.fillStyle = "white";
+            stars.forEach(s => {
+                ctx.beginPath();
+                ctx.arc(s.x, s.y, s.size, 0, Math.PI*2);
+                ctx.fill();
+                s.y += s.speed;
+                if(s.y > canvas.height) s.y = 0;
+            });
+            requestAnimationFrame(animateStars);
+        }
+        animateStars();
+    </script>
+</body>
+</html>
